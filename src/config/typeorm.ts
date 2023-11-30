@@ -1,10 +1,10 @@
 import { registerAs } from '@nestjs/config';
 import { config as dotenvConfig } from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { Player } from './entities/Player';
-import { Reward } from './entities/Reward';
-import { Coupon } from './entities/Coupon';
-import { PlayerCoupon } from './entities/PlayerCoupon';
+import { Player } from '../entities/Player';
+import { Reward } from '../entities/Reward';
+import { Coupon } from '../entities/Coupon';
+import { PlayerCoupon } from '../entities/PlayerCoupon';
 
 dotenvConfig({ path: '.env' });
 

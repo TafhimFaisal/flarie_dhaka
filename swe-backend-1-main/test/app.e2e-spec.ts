@@ -30,23 +30,54 @@ describe('AppController (e2e)', () => {
           }).expect(201)
   });
   
-  it('it should return error message (POST)', () => {
+  it('it should return error message invalide rewardId (POST)', () => {
+    return request(app.getHttpServer()).post('/coupon-redeem')
+          .send({
+            "playerId" : playerId,
+            "rewardId" : 123
+          }).expect(400).expect({
+            "statusCode": 400,
+            "message": "invalide rewardId"
+          })
+  });
+  
+  it('it should return error message invalide playerId (POST)', () => {
+    return request(app.getHttpServer()).post('/coupon-redeem')
+          .send({
+            "playerId" : 123,
+            "rewardId" : rewardId
+          }).expect(400).expect({
+            "statusCode": 400,
+            "message": "invalide playerId"
+          })
+  });
+  
+  it('it should return error message rewardId is required (POST)', () => {
     return request(app.getHttpServer()).post('/coupon-redeem')
           .send({
             "playerId" : playerId
-          }).expect(400)
-          .expect({
+          }).expect(400).expect({
             "statusCode": 400,
             "message": "rewardId is required"
           })
   });
   
-  it('it should return error message (POST)', () => {
+  it('it should return error message you have redeemed all coupon for this reward (POST)', () => {
+    return request(app.getHttpServer()).post('/coupon-redeem')
+          .send({
+            "playerId" : playerId,
+            "rewardId" : rewardId
+          }).expect(400).expect({
+            "statusCode": 400,
+            "message": "you have redeemed all coupon for this reward"
+          })
+  });
+  
+  it('it should return error message playerId is required (POST)', () => {
     return request(app.getHttpServer()).post('/coupon-redeem')
           .send({
             "rewardId" : rewardId
-          }).expect(400)
-          .expect({
+          }).expect(400).expect({
             "statusCode": 400,
             "message": "playerId is required"
           })
